@@ -1,4 +1,11 @@
 class House:
+    houses_history = []
+
+    def __new__(cls, *args, **kwargs):
+        cls.houses_history.append(args)
+        return super().__new__(cls)
+
+
     def __init__(self, name, number_of_floors):
         self.name = name
         self.number_of_floors = number_of_floors
@@ -44,34 +51,44 @@ class House:
     def __radd__(self, value):
         return self.number_of_floors - value
 
+    def __del__(self):
+        print(f"{self.name} снесён, но останется в истории")
+
+#h1 = House("Пупкин", number_of_floors=20)
+#h2 = House("Васёк", number_of_floors=5)
 
 
 
-
-h1 = House("Пупкин", 20)
-h2 = House("Васёк", 5)
-
-print(h1)
-print(h2)
-
-h1.go_to(20)
-h2.go_to(10)
-
-
-print(h1 < h2)
-print(h1 == h2, h2 == h1)
-print(h1 > h2)
-print(h1 <= h2)
-print(h1 >= h2)
-print(h1 != h2)
-h1 = h1 + 10
-h2 += 10
-print(h1, h2)
-#print(h1 + 10, h2 + 6)
+h1 = House('ЖК Эльбрус', 10)
+print(House.houses_history)
+h2 = House('ЖК Акация', 20)
+print(House.houses_history)
+h3 = House('ЖК Матрёшки', 20)
+print(House.houses_history)
 
 
 
+del h2
+del h3
 
+print(House.houses_history)
+
+
+#print(h1)
+#print(h2)
+#print(h1 < h2)
+#print(h1 == h2, h2 == h1)
+#print(h1 > h2)
+#print(h1 <= h2)
+#print(h1 >= h2)
+#print(h1 != h2)
+#h1 = h1 + 10
+#h2 += 10
+#print(h1, h2)
+#print(House.houses_history)
+#del h2
+#del h1
+#print(House.houses_history)
 
 #__str__
 #print(h1)
